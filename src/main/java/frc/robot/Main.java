@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
+import swervelib.math.SwerveMath;
 
 /**
  * Do NOT add any static variables to this class, or any initialization at all. Unless you know what you are doing, do
@@ -22,8 +23,19 @@ public final class Main
    *
    * <p>If you change your main robot class, change the parameter type.
    */
+
+   /*
+    * 
+  Notes for Abi:
+    - Locations are actually in inches, not meters
+    - redo conversion factors with the built in methods
+    - possibly invert IMU based on testing
+
+    */
   public static void main(String... args)
   {
+    System.out.println(SwerveMath.calculateDegreesPerSteeringRotation(150.0/7, 1));
+    System.out.println(SwerveMath.calculateMetersPerRotation(0.1016, 6.12, 1)); 
     RobotBase.startRobot(Robot::new);
   }
 }

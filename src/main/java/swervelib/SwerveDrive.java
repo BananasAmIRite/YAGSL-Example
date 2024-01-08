@@ -496,6 +496,12 @@ public class SwerveDrive
         SmartDashboard.putNumber(
             "Module[" + module.configuration.name + "] Angle Setpoint: ",
             module.lastState.angle.getDegrees());
+            SmartDashboard.putNumber(
+            "Module[" + module.configuration.name + "] Speed: ",
+            module.getState().speedMetersPerSecond);
+            SmartDashboard.putNumber(
+            "Module[" + module.configuration.name + "] Angle: ",
+            module.getState().angle.getDegrees());
       }
     }
   }

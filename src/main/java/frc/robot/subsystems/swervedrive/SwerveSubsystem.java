@@ -41,7 +41,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public  double            maximumSpeed = Units.feetToMeters(14.5);
+  public  double            maximumSpeed = Units.feetToMeters(5);
   /**
    * The auto builder for PathPlanner, there can only ever be one created so we save it just incase we generate multiple
    * paths with events.
