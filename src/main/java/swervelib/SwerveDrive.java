@@ -420,10 +420,13 @@ public class SwerveDrive
       }
     }
 
+    SmartDashboard.putNumber("angle", getYaw().getDegrees());
+
     // Display commanded speed for testing
     if (SwerveDriveTelemetry.verbosity == TelemetryVerbosity.HIGH)
     {
       SmartDashboard.putString("RobotVelocity", velocity.toString());
+      SmartDashboard.putBoolean("Is Open Loop", isOpenLoop);
     }
     if (SwerveDriveTelemetry.verbosity.ordinal() >= TelemetryVerbosity.HIGH.ordinal())
     {

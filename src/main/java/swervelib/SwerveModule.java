@@ -193,7 +193,9 @@ public class SwerveModule
       if (desiredState.speedMetersPerSecond != lastState.speedMetersPerSecond)
       {
         double velocity = desiredState.speedMetersPerSecond;
-        driveMotor.setReference(velocity, feedforward.calculate(velocity));
+        driveMotor.setReference(velocity, 0
+        // , feedforward.calculate(velocity)
+        );
       }
     }
 

@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import swervelib.parser.SwerveControllerConfiguration;
 
 /**
@@ -109,6 +110,9 @@ public class SwerveController
     // to allow for precise control and fast movement.
     double x = xInput * maxSpeed;
     double y = yInput * maxSpeed;
+
+    SmartDashboard.putNumber("X*maxspeed", x);
+    SmartDashboard.putNumber("Y*maxspeed", y);
 
     return getRawTargetSpeeds(x, y, angle, currentHeadingAngleRadians);
   }
