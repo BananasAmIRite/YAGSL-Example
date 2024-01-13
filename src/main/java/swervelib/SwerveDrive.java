@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
@@ -99,7 +100,7 @@ public class SwerveDrive
    * Correct chassis velocity in {@link SwerveDrive#drive(Translation2d, double, boolean, boolean)} using 254's
    * correction.
    */
-  public        boolean                  chassisVelocityCorrection                       = true;
+  public        boolean                  chassisVelocityCorrection                       = false;
   /**
    * Whether to correct heading when driving translationally. Set to true to enable.
    */
@@ -392,6 +393,21 @@ public class SwerveDrive
   public void drive(ChassisSpeeds velocity, boolean isOpenLoop, Translation2d centerOfRotationMeters)
   {
 
+    
+    SmartDashboard.putString("RobotVelocity0", velocity.toString());
+
+    if (Math.abs(velocity.vxMetersPerSecond) <= 1E-4 && Math.abs(velocity.vyMetersPerSecond) <= 1E-4 && Math.abs(velocity.omegaRadiansPerSecond) <= 1E-4) {
+      SmartDashboard.putBoolean("stationary", true);
+      setRawModuleStates(new SwerveModuleState[] {
+        new SwerveModuleState(), 
+        new SwerveModuleState(), 
+        new SwerveModuleState(), 
+        new SwerveModuleState()}, isOpenLoop); 
+        return; 
+    } else {
+      SmartDashboard.putBoolean("stationary", false); 
+    }
+
     // Thank you to Jared Russell FRC254 for Open Loop Compensation Code
     // https://www.chiefdelphi.com/t/whitepaper-swerve-drive-skew-and-second-order-kinematics/416964/5
     if (chassisVelocityCorrection)
@@ -435,8 +451,11 @@ public class SwerveDrive
       SwerveDriveTelemetry.desiredChassisSpeeds[2] = Math.toDegrees(velocity.omegaRadiansPerSecond);
     }
 
+    
+
     // Calculate required module states via kinematics
     SwerveModuleState[] swerveModuleStates = kinematics.toSwerveModuleStates(velocity, centerOfRotationMeters);
+    SmartDashboard.putString("desired states!!", Arrays.toString(swerveModuleStates)); 
 
     setRawModuleStates(swerveModuleStates, isOpenLoop);
   }
@@ -470,6 +489,9 @@ public class SwerveDrive
    */
   private void setRawModuleStates(SwerveModuleState[] desiredStates, boolean isOpenLoop)
   {
+
+    SmartDashboard.putString("desired states!!", Arrays.toString(desiredStates)); 
+
     // Desaturates wheel speeds
     if (attainableMaxTranslationalSpeedMetersPerSecond != 0 || attainableMaxRotationalVelocityRadiansPerSecond != 0)
     {

@@ -89,7 +89,7 @@ public class AbsoluteDrive extends CommandBase
       //Dont Init Rotation Again
       initRotation = false;
     }
-
+    System.out.println("hie");
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
     translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),

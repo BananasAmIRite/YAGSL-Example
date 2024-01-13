@@ -109,6 +109,7 @@ public class AbsoluteDriveAdv extends CommandBase
                                                          headingY);
                                                          
 SmartDashboard.putString("Desired Speeds", desiredSpeeds.toString());
+System.out.println("hi");
     // Prevent Movement After Auto
     if(initRotation)
     {
@@ -126,13 +127,14 @@ SmartDashboard.putString("Desired Speeds", desiredSpeeds.toString());
 
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
-    translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
-                                           Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
-                                           swerve.getSwerveDriveConfiguration());
+    // translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
+    //                                        Constants.LOOP_TIME, Constants.ROBOT_MASS, List.of(Constants.CHASSIS),
+    //                                        swerve.getSwerveDriveConfiguration());
     SmartDashboard.putNumber("LimitedTranslation", translation.getX());
     SmartDashboard.putString("Translation", translation.toString());
 
-
+    SmartDashboard.putNumber("desired speed", desiredSpeeds.omegaRadiansPerSecond);
+    SmartDashboard.putNumber("omegaRad", desiredSpeeds.omegaRadiansPerSecond); 
     // Make the robot move
     swerve.drive(translation, desiredSpeeds.omegaRadiansPerSecond, true);
   }
